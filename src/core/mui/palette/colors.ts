@@ -1,0 +1,17 @@
+export const colors = {
+  yellow: '#F6D44A',
+  darkness: '#161A23',
+  toryBlue: '#0F40BE',
+  alizarinCrimson: '#E6332A',
+  wineBerry: '#642422',
+  pastelGreen: '#7ADE7A',
+  blackOlive: '#3E3E3E',
+  raisinBlack: '#211F20',
+  anthraciteGrey: '#403F40',
+  burntUmber: '#882B22',
+  silverChalice: '#9E9E9E',
+  grayDark: '#1E1E1E',
+  curiousBlue: '#2E8EC0',
+  thunder: '#221F20',
+  mineShaft: '#333333',
+};

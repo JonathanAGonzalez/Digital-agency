@@ -1,0 +1,21 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.fp-watermark {
+  display: none;
+}
+
+.swiper-pagination-bullet-active-main {
+  background: #f6d44a !important;
+}
+
+.swiper-pagination-bullet-active-prev {
+  background: #f6d44a !important;
+}
+
+.swiper-pagination-bullet-active-next {
+  background: #f6d44a !important;
+}
