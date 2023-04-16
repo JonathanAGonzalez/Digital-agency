@@ -38,7 +38,7 @@ const Contact = () => {
   const handleValues = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const name = e.target.name;
-    const emailRegex = /([1-9])+/g;
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
     if (name !== '') {
       setValuesForm({ ...valuesForm, [name]: value });
@@ -101,50 +101,56 @@ const Contact = () => {
 
   const submitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const { fullName, email, phone, message } = valuesForm;
 
-    if (fullName !== '' && email !== '' && phone !== '' && message !== '') {
-      setStatusForm({ ...statusForm, loading: true });
-      await axios.post(
-        'https://server-email-da.herokuapp.com/users',
-        valuesForm,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+    try {
+      if (fullName !== '' && email !== '' && phone !== '' && message !== '') {
+        setStatusForm({ ...statusForm, loading: true });
+        await axios.post(
+          'https://server-back-da-production.up.railway.app/users',
+          valuesForm,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        setStatusForm({
+          loading: false,
+          success: true,
+        });
+
+        setValuesForm(initialStateForm);
+
+        toast.success('Tu consulta fue enviada con exito!', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+
+      setErrors({
+        fullName: 'El nombre es requerido',
+        email: 'El email es requerido',
+        phone: 'El telefono es requerido',
+        message: 'El mensaje es requerido',
+      });
+    } catch (error) {
       setStatusForm({
         loading: false,
-        success: true,
-      });
-
-      setValuesForm(initialStateForm);
-
-      toast.success('Tu consulta fue enviada con exito!', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        success: false,
       });
     }
-
-    setErrors({
-      fullName: 'El nombre es requerido',
-      email: 'El email es requerido',
-      phone: 'El telefono es requerido',
-      message: 'El mensaje es requerido',
-    });
   };
 
   const loadingFetch = () => {
     if (statusForm.loading) {
       return (
-        <CircularProgress color="inherit" sx={{ width: 18, height: 18 }} />
+        <CircularProgress color='inherit' sx={{ width: 18, height: 18 }} />
       );
     }
 
@@ -180,11 +186,11 @@ const Contact = () => {
               <TextField
                 fullWidth
                 onChange={handleValues}
-                name="fullName"
-                id="filled-basic"
+                name='fullName'
+                id='filled-basic'
                 type={'text'}
-                label="Nombre Completo"
-                variant="filled"
+                label='Nombre Completo'
+                variant='filled'
                 value={valuesForm.fullName}
                 error={!statusForm.success && errors.fullName !== ''}
                 helperText={!statusForm.success && errors.fullName}
@@ -192,7 +198,7 @@ const Contact = () => {
             </GroupTextField>
             <GroupTextField>
               <Tooltip
-                title="Ejemplo: 11533967.."
+                title='Ejemplo: 11533967..'
                 sx={{ position: 'absolute', left: -40, top: 5 }}
               >
                 <IconButton>
@@ -202,10 +208,10 @@ const Contact = () => {
               <TextField
                 fullWidth
                 onChange={handleValues}
-                name="phone"
-                id="filled-basic"
-                label="Telefono"
-                variant="filled"
+                name='phone'
+                id='filled-basic'
+                label='Telefono'
+                variant='filled'
                 type={'number'}
                 value={valuesForm.phone}
                 error={!statusForm.success && errors.phone !== ''}
@@ -216,10 +222,10 @@ const Contact = () => {
               <TextField
                 fullWidth
                 onChange={handleValues}
-                name="email"
-                id="filled-basic"
-                label="Correo Electronico"
-                variant="filled"
+                name='email'
+                id='filled-basic'
+                label='Correo Electronico'
+                variant='filled'
                 type={'email'}
                 value={valuesForm.email}
                 error={!statusForm.success && errors.email !== ''}
@@ -230,10 +236,10 @@ const Contact = () => {
               <TextField
                 fullWidth
                 onChange={handleValues}
-                name="message"
-                id="filled-basic"
-                label="Mensaje"
-                variant="filled"
+                name='message'
+                id='filled-basic'
+                label='Mensaje'
+                variant='filled'
                 multiline
                 rows={4}
                 value={valuesForm.message}
@@ -244,7 +250,7 @@ const Contact = () => {
             <GroupTextField>
               <Button
                 onClick={(e) => submitEmail(e)}
-                variant="contained"
+                variant='contained'
                 color={'primary'}
               >
                 {loadingFetch()}
