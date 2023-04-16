@@ -28,7 +28,7 @@ const Home: NextPage = () => {
   return (
     <>
       <ToastContainer
-        position="top-right"
+        position='top-right'
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -39,18 +39,14 @@ const Home: NextPage = () => {
         pauseOnHover
       />
       <ToastContainer />
-      <LinkDa
-        href="https://api.whatsapp.com/send?phone=5491151136634"
-        target="_blank"
-        sx={{}}
-      >
+      <LinkDa href='https://api.whatsapp.com/' target='_blank' sx={{}}>
         <WhatsappIcon />
       </LinkDa>
       <ReactFullpage
         anchors={anchors}
         navigation
-        menu="#menu"
-        navigationPosition="right"
+        menu='#menu'
+        navigationPosition='right'
         fitToSection={false}
         lazyLoading
         responsiveWidth={900}
@@ -64,20 +60,20 @@ const Home: NextPage = () => {
         render={({ state, fullpageApi }) => {
           return (
             <LayoutMain title={'Home'}>
-              <div className="section" id="#home">
+              <div className='section' id='#home'>
                 <Header moveTo={fullpageApi?.moveTo} />
                 <HeroBanner fullpageApi={fullpageApi} />
               </div>
 
-              <div className="section" data-section="#services">
+              <div className='section' data-section='#services'>
                 <Services />
               </div>
 
-              <div className="section">
+              <div className='section'>
                 <AboutUs />
               </div>
 
-              <div className="section">
+              <div className='section'>
                 <ModalPriceService
                   itemsCards={textDataCards}
                   onClose={closeModalPriceService}
@@ -86,7 +82,7 @@ const Home: NextPage = () => {
                 <PlanPrice openModalPriceService={openModalPriceService} />
               </div>
 
-              <div className="section">
+              <div className='section'>
                 <ContainerContact>
                   <Container>
                     <Contact />

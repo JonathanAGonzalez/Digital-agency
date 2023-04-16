@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import CheckIcon from '@mui/icons-material/Check';
 import LinkDa from '../../../core/components/LinkDa';
 import CloseIcon from '@mui/icons-material/Close';
+import Image from 'next/image';
 
 interface Data {
   full_lists: string[];
@@ -43,8 +44,8 @@ const ModalPriceService = ({
     <Modal
       open={open}
       onClose={onClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby='modal-modal-title'
+      aria-describedby='modal-modal-description'
       disableAutoFocus
     >
       {loading ? (
@@ -69,18 +70,21 @@ const ModalPriceService = ({
                   ))}
                 </List>
                 <WrapperButton>
-                  <LinkDa
-                    href="https://api.whatsapp.com/send?phone=5491151136634"
-                    target="_blank"
-                  >
-                    <Button variant="contained">Hablemos de tu proyecto</Button>
+                  <LinkDa href='https://api.whatsapp.com' target='_blank'>
+                    <Button variant='contained'>Hablemos de tu proyecto</Button>
                   </LinkDa>
                 </WrapperButton>
               </WrapperTextInformation>
 
-              <WrapperBackgroundModal
-                srcBackground={data?.pictureModal}
-              ></WrapperBackgroundModal>
+              <WrapperBackgroundModal>
+                <Image
+                  src={data?.pictureModal || '/images/plan-1.png'}
+                  width={400}
+                  height={300}
+                  alt='modal image'
+                  priority
+                />
+              </WrapperBackgroundModal>
             </ContainerModal>
           </Fade>
         </div>
@@ -113,21 +117,20 @@ const WrapperTextInformation = styled('div')(({ theme }) => ({
 }));
 
 interface WrapperBackgroundModalProps {
-  srcBackground: string | undefined;
   theme?: Theme | any;
 }
 
-const WrapperBackgroundModal = styled('div', {
-  shouldForwardProp: (prop) => prop !== 'srcBackground',
-})(({ theme, srcBackground }: WrapperBackgroundModalProps) => ({
-  width: '50%',
-  background: `url(${srcBackground}) center`,
-  backgroundSize: 'cover',
-  display: 'none',
-  [theme?.breakpoints?.up('md')]: {
-    display: 'block',
-  },
-}));
+const WrapperBackgroundModal = styled('div')(
+  ({ theme }: WrapperBackgroundModalProps) => ({
+    width: '40%',
+    display: 'none',
+    [theme?.breakpoints?.up('md')]: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  })
+);
 
 const WrapperButton = styled('div')(({ theme }) => ({
   marginTop: theme.spacing(8),
@@ -142,7 +145,12 @@ const ContainerModal = styled('div')(({ theme }) => ({
   overflow: 'hidden',
   position: 'relative',
   [theme.breakpoints.up('md')]: {
-    width: 900,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 777,
+    minHeight: 591,
+    padding: theme.spacing(0, 5),
   },
 }));
 
